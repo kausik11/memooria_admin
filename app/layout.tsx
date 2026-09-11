@@ -11,7 +11,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      {/* Grammarly can inject body attributes before React hydrates. */}
+      <body suppressHydrationWarning>{children}</body>
     </html>
   );
 }
