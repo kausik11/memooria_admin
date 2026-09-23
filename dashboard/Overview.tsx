@@ -27,6 +27,7 @@ type Dashboard = {
 export default function Overview() {
   const { data, error, loading, reload } =
     useResource<Dashboard>("/admin/dashboard");
+  const metrics = useResource<Record<string, number>>("/admin/marketplace/metrics");
   return (
     <>
       <PageHeading
@@ -39,6 +40,7 @@ export default function Overview() {
         }
       />
       <ResourceState {...{ loading, error, reload }} />
+      <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-5 mb-6">{Object.entries(metrics.data || {}).map(([key,value]) => <div className="panel" key={key}><p className="muted text-xs capitalize">{key.replace(/([A-Z])/g," $1")}</p><p className="display text-3xl mb-0">{value}</p></div>)}</div>
       {data && (
         <>
           <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">

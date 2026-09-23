@@ -1,4 +1,5 @@
 "use client";
+import DemoLogin from "@/components/DemoLogin";
 import { useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import { api } from "@/services/api";
@@ -14,7 +15,7 @@ export default function Login() {
         method: "POST",
         body: JSON.stringify(Object.fromEntries(new FormData(e.currentTarget))),
       });
-      if (user.role !== "admin") {
+      if (!["admin", "super_admin"].includes(user.role)) {
         await api("/auth/logout", { method: "POST" });
         throw new Error("This account does not have administrator access.");
       }
@@ -46,7 +47,7 @@ export default function Login() {
               type="password"
               name="password"
               required
-              minLength={10}
+              minLength={1}
               maxLength={72}
               autoComplete="current-password"
             />
@@ -60,6 +61,7 @@ export default function Login() {
             {busy ? "Signing in…" : "Sign in to workspace"}
           </button>
         </form>
+        <DemoLogin admin />
       </div>
     </main>
   );

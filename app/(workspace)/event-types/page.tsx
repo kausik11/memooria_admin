@@ -1,0 +1,1 @@
+import Configuration from "@/marketplace/Configuration"; export default function Page(){return <Configuration resource="events" />;}

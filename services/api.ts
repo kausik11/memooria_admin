@@ -13,7 +13,7 @@ export async function api<T>(
   const base =
     typeof window === "undefined"
       ? `${process.env.API_URL || "http://127.0.0.1:4000"}/api`
-      : "/api";
+      : process.env.NEXT_PUBLIC_API_URL || "/api";
   const response = await fetch(`${base}${path}`, {
     ...options,
     cache: "no-store",

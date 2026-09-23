@@ -11,11 +11,14 @@ import {
   FiLogOut,
   FiArrowUpRight,
   FiImage,
+  FiClipboard,
 } from "react-icons/fi";
 import { api } from "@/services/api";
 const nav = [
+  ...[["users", "Users & access"], ["requirements", "Requirements"], ["bookings", "Bookings"], ["proposals", "Proposals"], ["verification", "Verification"], ["appeals", "Appeals"], ["disputes", "Disputes"], ["messages", "Messages"], ["categories", "Categories"], ["event-types", "Event types"], ["forms", "Dynamic forms"], ["settings", "Settings"], ["audit-logs", "Audit logs"]].map(([path,label]) => ({href: "/"+path, label, icon: FiLayers})),
   { href: "/dashboard", label: "Overview", icon: FiGrid },
   { href: "/creators", label: "Creators", icon: FiUsers },
+  { href: "/onboarding", label: "Onboarding", icon: FiClipboard },
   { href: "/services", label: "Services", icon: FiLayers },
   { href: "/inquiries", label: "Inquiries", icon: FiMessageSquare },
   { href: "/reviews", label: "Reviews", icon: FiStar },
@@ -32,7 +35,7 @@ export default function AdminShell({
   useEffect(() => {
     api<{ role: string }>("/auth/me")
       .then((u) => {
-        if (u.role === "admin") setReady(true);
+        if (["admin", "super_admin"].includes(u.role)) setReady(true);
         else router.replace("/login");
       })
       .catch(() => router.replace("/login"));
@@ -48,7 +51,7 @@ export default function AdminShell({
         <span className="muted ml-9 mt-1 text-[9px] tracking-[.25em]">
           ADMIN WORKSPACE
         </span>
-        <nav className="mt-8 flex gap-2 overflow-x-auto lg:flex-col">
+        <nav className="mt-8 flex gap-2 overflow-x-auto lg:flex-col lg:min-h-0 lg:flex-1 lg:overflow-y-auto">
           {nav.map((n) => (
             <Link
               href={n.href}

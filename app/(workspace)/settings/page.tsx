@@ -1,0 +1,1 @@
+export {SettingsManager as default} from "@/marketplace/Configuration";

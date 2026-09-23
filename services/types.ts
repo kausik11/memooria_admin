@@ -13,6 +13,7 @@ export type Review = {
   comment: string;
 };
 export type Creator = {
+  application?: Record<string, string | number | boolean | string[]>;
   _id: string;
   businessName: string;
   ownerName: string;

@@ -39,6 +39,7 @@ export default function CreatorEditor({
   const [c, setC] = useState(creator);
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
+  const [identityUrl, setIdentityUrl] = useState("");
   const [date, setDate] = useState("");
   const [galleryText, setGalleryText] = useState(creator.gallery.join("\n"));
   function field(key: keyof Creator, value: unknown) {
@@ -69,6 +70,17 @@ export default function CreatorEditor({
   }
   return (
     <form onSubmit={save} className="space-y-7">
+      {c.application && <section className="rounded-xl border border-stone-200 p-5 space-y-3">
+        <h3 className="font-semibold">Creator application — private review</h3>
+        <p className="muted text-sm">Review the identity document and application before setting this creator to Active.</p>
+        {Object.entries(c.application).filter(([key]) => !["idCard", "profileImage", "workSamples", "folder"].includes(key)).map(([key, value]) => <div key={key}><p className="text-xs font-semibold capitalize">{key.replace(/([A-Z])/g, " $1")}</p><p className="text-sm whitespace-pre-wrap">{Array.isArray(value) ? value.join(", ") : String(value)}</p></div>)}
+        <button type="button" className="btn btn-outline" onClick={async () => {
+          setError("");
+          try { const result = await api<{ url: string }>(`/admin/creator/${c._id}/identity`); setIdentityUrl(result.url); }
+          catch (e) { setError(e instanceof Error ? e.message : "Cannot open document."); }
+        }}>View private ID document</button>
+        {identityUrl && <a href={identityUrl} target="_blank" rel="noopener noreferrer" className="block text-sm underline">Open ID document (link expires in 5 minutes)</a>}
+      </section>}
       <div className="grid gap-4 sm:grid-cols-2">
         {(
           [

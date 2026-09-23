@@ -1,0 +1,1 @@
+import Records from "@/marketplace/Records"; export default function Page(){return <Records resource="requirements" />;}
