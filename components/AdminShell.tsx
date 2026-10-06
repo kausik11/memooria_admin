@@ -16,8 +16,8 @@ import {
 import { api } from "@/services/api";
 import Loader from "./Loader";
 const nav = [
-  ...[["users", "Users & access"], ["requirements", "Requirements"], ["bookings", "Bookings"], ["proposals", "Proposals"], ["verification", "Verification"], ["appeals", "Appeals"], ["disputes", "Disputes"], ["messages", "Messages"], ["categories", "Categories"], ["event-types", "Event types"], ["forms", "Dynamic forms"], ["settings", "Settings"], ["audit-logs", "Audit logs"]].map(([path,label]) => ({href: "/"+path, label, icon: FiLayers})),
   { href: "/dashboard", label: "Overview", icon: FiGrid },
+  ...[["users", "Users & access"], ["requirements", "Requirements"], ["bookings", "Bookings"], ["proposals", "Proposals"], ["verification", "Verification"], ["appeals", "Appeals"], ["disputes", "Disputes"], ["messages", "Messages"], ["categories", "Categories"], ["event-types", "Event types"], ["forms", "Dynamic forms"], ["settings", "Settings"], ["audit-logs", "Audit logs"]].map(([path,label]) => ({href: "/"+path, label, icon: FiLayers})),
   { href: "/creators", label: "Creators", icon: FiUsers },
   { href: "/onboarding", label: "Onboarding", icon: FiClipboard },
   { href: "/services", label: "Services", icon: FiLayers },
