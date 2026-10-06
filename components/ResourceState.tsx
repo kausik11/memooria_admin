@@ -1,3 +1,5 @@
+import Loader from "./Loader";
+
 export default function ResourceState({
   loading,
   error,
@@ -9,11 +11,7 @@ export default function ResourceState({
 }) {
   return (
     <>
-      {loading && (
-        <p className="muted py-4" role="status">
-          Loading…
-        </p>
-      )}
+      {loading && <Loader />}
       {error && (
         <div className="error-box mb-5" role="alert">
           {error}

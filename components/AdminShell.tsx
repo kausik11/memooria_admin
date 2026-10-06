@@ -14,6 +14,7 @@ import {
   FiClipboard,
 } from "react-icons/fi";
 import { api } from "@/services/api";
+import Loader from "./Loader";
 const nav = [
   ...[["users", "Users & access"], ["requirements", "Requirements"], ["bookings", "Bookings"], ["proposals", "Proposals"], ["verification", "Verification"], ["appeals", "Appeals"], ["disputes", "Disputes"], ["messages", "Messages"], ["categories", "Categories"], ["event-types", "Event types"], ["forms", "Dynamic forms"], ["settings", "Settings"], ["audit-logs", "Audit logs"]].map(([path,label]) => ({href: "/"+path, label, icon: FiLayers})),
   { href: "/dashboard", label: "Overview", icon: FiGrid },
@@ -40,7 +41,7 @@ export default function AdminShell({
       })
       .catch(() => router.replace("/login"));
   }, [router]);
-  if (!ready) return <p className="p-12 muted">Checking your session…</p>;
+  if (!ready) return <Loader label="Checking your session…" />;
   return (
     <div className="min-h-screen lg:pl-60">
       <aside className="border-b border-[#e7e1ed] bg-white p-5 lg:fixed lg:inset-y-0 lg:left-0 lg:flex lg:w-60 lg:flex-col lg:border-r lg:p-7">
